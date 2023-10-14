@@ -1,3 +1,6 @@
+* {
+    font-family: 'Hanuman', serif;
+}
 /* Absolute Center CSS Spinner */
 .loading {
     position: fixed;
@@ -127,7 +130,11 @@
 
 body {
     background: rgb(238,237,236);
-background: radial-gradient(circle, rgba(238,237,236,1) 0%, rgba(94,62,123,1) 100%, rgba(91,46,74,1) 100%);
+    background: radial-gradient(circle, rgba(238,237,236,1) 0%, rgba(0,0,0,1) 100%, rgba(209,209,209,1) 100%);
+}
+
+form {
+    font-size: 18px;
 }
 
 .navbar {
@@ -140,17 +147,17 @@ background: radial-gradient(circle, rgba(238,237,236,1) 0%, rgba(94,62,123,1) 10
 }
 
 .margin {
-    margin-top: 100px;
+    margin: 5% 12%;
 }
 
-.card {
-    min-height: 350px;
+.card-jobs {
+    font-family: 'Abhaya Libre', serif;
+    min-height: 420px;
     min-width: 300px;
     background-color: rgb(252, 252, 252);
-    
 }
 
-.card:hover {
+.card-jobs:hover {
     transform: scale(1.08);
 }
 
@@ -160,9 +167,8 @@ background: radial-gradient(circle, rgba(238,237,236,1) 0%, rgba(94,62,123,1) 10
 }
 
 .job-description {
-    white-space: nowrap;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
     overflow: hidden;
-    text-overflow: ellipsis;
 }
-
-
