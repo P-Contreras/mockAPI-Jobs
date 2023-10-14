@@ -1,5 +1,5 @@
 
-const baseURL = "https://652088b7906e276284c4880c.mockapi.io/api";
+const baseURL = "https://652088b7906e276284c4880c.mockapi.io/jobs";
 
 getJobs = async () => {
     showView('spinner');

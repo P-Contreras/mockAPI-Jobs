@@ -13,7 +13,7 @@
 
 <body>
 
-        <nav id="navbar" class="navbar navbar-dark bg-dark fixed-top">
+        <nav id="navbar" class="navbar navbar-dark bg-dark">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#"><i class="fa-solid fa-house-laptop fa-lg"
                         style="color: #785d8f; font-size: 50px;"></i></a>
@@ -24,7 +24,7 @@
                 <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
                     aria-labelledby="offcanvasDarkNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Ofertas Laborales</h5>
+                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Job Offers</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                             aria-label="Close"></button>
                     </div>
@@ -34,23 +34,142 @@
                                 <a class="nav-link active" aria-current="page" href="#">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Crear empleo</a>
+                                <a class="nav-link" href="#">Create Job</a>
                             </li>
                     </div>
                 </div>
             </div>
         </nav>
 
+        <div class="container mt-5">
+            <form id="search-form" class="d-flex">
+                <select class="form-select me-2" aria-label="Seleccione">
+                    <option selected>Location</option>
+                </select>
+    
+                <select class="form-select me-2" aria-label="Seleccione">
+                    <option selected>Seniority</option>
+                </select>
+    
+                <select class="form-select me-2" aria-label="Seleccione">
+                    <option selected>Category</option>
+                </select>
+    
+                <button class="btn btn-info me-2" type="button">Search</button>
+                <button class="btn btn-secondary" type="reset">Clean</button>
+            </form>
+        </div>
+
     <main class="margin">
         <section id="jobs-list" class="container gap-4 view">
-            JOB LISTS
         </section>
-        <section id="create-job" class="view"></section>
+        <section id="create-job" class="">
+            <div class="d-flex justify-content-center">
+                <div class="col-md-8 mb-4">
+                    <div class="card mb-4 shadow-lg border-dark">
+                        <div class="card-body">
+                            <form>
+                                <!-- 2 column grid layout with text inputs for the first and last names -->
+                                <div class="row mb-4">
+                                    <!-- TITLE input -->
+                                    <div class="col">
+                                        <div class="form-outline">
+                                            <label class="form-label" for="job-title">Job Title</label>
+                                            <input type="text" id="job-title" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <!-- IMG input -->
+                                    <div class="col mb-4">
+                                        <div class="form-outline">
+                                            <label for="formFile" class="form-label">Image</label>
+                                            <input class="form-control" type="file" id="job-image">
+                                        </div>
+                                    </div>
+    
+                                    <!-- DESCRIPTION input -->
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="description">Description</label>
+                                        <textarea class="form-control" id="description" rows="4"></textarea>
+                                    </div>
+    
+                                    <!-- LOCATION input -->
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="location">Location</label>
+                                        <input type="text" id="location" class="form-control" />
+                                    </div>
+    
+                                    <!-- SENIORITY input -->
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="seniority">Seniority</label>
+                                        <input type="text" id="seniority" class="form-control" />
+                                    </div>
+    
+                                    <!-- CATEGORY input -->
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="category">Category</label>
+                                        <input type="text" id="category" class="form-control" />
+                                    </div>
+    
+                                    <!-- SALARY input -->
+                                    <div class="row">
+                                        <div class="col form-outline mb-4">
+                                            <label class="form-label" for="salary">Salary</label>
+                                            <input type="number" id="salary" class="form-control" />
+                                        </div>
+    
+                                        <!-- LANGUEAGES input -->
+                                        <div class="col form-outline mb-4">
+                                            <label class="form-label" for="languages">Languages</label>
+                                            <input type="text" id="languages" class="form-control" />
+                                        </div>
+                                    </div>
+    
+                                    <!-- LONG-TERM checkbox -->
+                                    <div class="form-check d-flex justify-content-center mb-2">
+                                        <input class="form-check-input me-2" type="checkbox" value="" id="long-term" />
+                                        <label class="form-check-label" for="long-term">
+                                            Long Term
+                                        </label>
+                                    </div>
+    
+                                    <div>
+                                        <h5 class="card-subtitle mb-4 text-body-secondary">
+                                            Benefits
+                                        </h5>
+                                        <div class="row">
+                                            <div class="col form-outline mb-4">
+                                                <label class="form-label" for="vacation">Vacation</label>
+                                                <input type="text" id="vacation" class="form-control" />
+                                            </div>
+                                            <div class="col form-outline mb-4">
+                                                <label class="form-label" for="health-ensurance">Health Ensurance</label>
+                                                <input type="text" id="health-ensurance" class="form-control" />
+                                            </div>
+                                            <div class="form-outline">
+                                                <div class="form-check d-flex justify-content-center mb-2">
+                                                    <input class="form-check-input me-2" type="checkbox" value=""
+                                                        id="form7Example8" />
+                                                    <label class="form-check-label" for="form7Example8">
+                                                        Internet Paid
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row d-flex justify-content-end">
+                                        <button type="button" class="col-1 btn btn-success">Create</button>
+                                        <button type="button" class="col-1 btn btn-danger ms-3">Cancel</button>
+                                    </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="edit-job" class="view"></section>
         <div id="spinner" class="view loading">Loading&#8230;</div>
     </main>
-    
-    
     
     <script src="./js/main.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
