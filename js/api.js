@@ -13,8 +13,45 @@ getJobs = async () => {
 
 getJobs();
 
+const createJob = () => {
+    const newJob = {
+        name: $("#job-title").value,
+        image: $("#image-url").value,
+        description: $("#description").value,
+        location: $("#location").value,
+        seniority: $("#seniority").value,
+        category: $("#category").value,
+        salary: Number($("#salary").value),
+        languages: $("#languages").value.split(","),
+        long_term: $("#long-term").checked,
+        benefits: {
+            vacation: $("#vacation").value,
+            health_ensurance: $("#health-ensurance").value,
+            internet_paid: $("#internet-paid").checked,
+        },
+    };
 
-//agregar un nuevo posteo u oferta ==> POST--> funcion de agregarEmpleo()
+    return newJob;
+};
+
+const registerJob = async (newJob) => {
+    try {
+        const response = await fetch(`${baseURL}/jobs`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newJob),
+        });
+        const job = await response.json();
+        console.log(job);
+    } catch (error) {
+        alert(error);
+    } finally {
+        window.location.href = "index.html";
+    }
+};
+
 
 // editar ==> PATCH para editar parcialmente o PUT si queremos cambiarle todos los campos -->editarEmpleo(id)
 

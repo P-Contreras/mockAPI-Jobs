@@ -1,6 +1,8 @@
 $ = (selector) => document.querySelector(selector);
 $$ = (selector) => document.querySelectorAll(selector);
 
+// const randomId = () => self.crypto.randomUUID();
+
 const showView = (view) => {
     $$(".view").forEach((view) => view.classList.add("visually-hidden"));
     $(`#${view}`).classList.remove("visually-hidden")};
@@ -56,3 +58,18 @@ const renderJobs = (jobs) => {
     } else {
     }
 };
+
+
+
+$("#create-btn").addEventListener("click", async function (event) {
+    event.preventDefault();
+
+    const newJob = createJob();
+    console.log(newJob);
+
+    await registerJob(newJob);
+    getJobs();  
+    showView("jobs-list");
+});
+
+
