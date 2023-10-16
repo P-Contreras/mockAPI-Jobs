@@ -1,5 +1,5 @@
 * {
-    font-family: 'Hanuman', serif;
+    font-family: 'Lato', sans-serif;
 }
 /* Absolute Center CSS Spinner */
 .loading {
@@ -171,4 +171,9 @@ form {
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+.job-image {
+    max-width: 100%;
+    max-height: 100%;
 }

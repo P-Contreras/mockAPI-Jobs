@@ -20,11 +20,23 @@ const showView = (view) => {
 
     $("#home-btn").addEventListener("click", function (event) {
         event.preventDefault();
+        showView("search-filters");
         showView("jobs-list");
     });
 
     $("#home").addEventListener("click", function (event) {
         event.preventDefault();
+        showView("search-filters");
+        showView("jobs-list");
+    });
+
+    $("#create-btn").addEventListener("click", async function (event) {
+        event.preventDefault();
+    
+        const newJob = createJob();
+    
+        await registerJob(newJob);
+        getJobs();  
         showView("jobs-list");
     });
 
@@ -49,27 +61,52 @@ const renderJobs = (jobs) => {
                 <li class="list-group-item list-group-item-action list-group-item-dark">${category}</li>
             </ul>
             <div class="card-body">
-            <a href="#" class='btn btn-outline-dark boton' onclick=(${id})>View details</a>
+            <a href="#" class='btn btn-outline-dark boton' onclick="getJobDetail('${id}')">View details</a>
             </div>
             </div>
     `;
             $("#jobs-list").appendChild(row);
         }
     } else {
+        console.error("Invalid jobs data");
     }
 };
 
 
+const showJobDetails = (job) => {
 
-$("#create-btn").addEventListener("click", async function (event) {
-    event.preventDefault();
+    $("#search-filters").classList.add("visually-hidden");
+    const jobDetailsContainer = $("#job-details-container");
+    showView("job-details-container");
 
-    const newJob = createJob();
-    console.log(newJob);
+    const jobDetailsHTML = `
+    <div class="card" style="width: 38rem;">
+    <img src="${job.image}" class="card-img-top job-image" alt="...">
+    <div class="card-body">
+        <h3 class="card-title">${job.name}</h3>
+        <p class="card-text">${job.description}</p>
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item list-group-item-action list-group-item-success">${job.location}</li>
+        <li class="list-group-item list-group-item-action list-group-item-info">${job.seniority}</li>
+        <li class="list-group-item list-group-item-action list-group-item-dark">${job.category}</li>
+        </ul>
+    </div>
+    <div class="card-body">
+    <p class="card-text">Salary: $ ${job.salary}</p>
+    <p class="card-text">Languages: ${job.languages}</p>
+    <p class="card-text">Long term: ${job.longTermText}</p>
+    <h5 class="card-title">Benefits</h5>
+    <p class="card-text">Vacation: ${job.benefits.vacation}</p>
+    <p class="card-text">Health insurance: ${job.benefits.health_ensurance}</p>
+    <p class="card-text">Internet paid: ${job.internetPaidText}</p>
+    </div>
+    <div class="card-body">
+    <button type="button" id="edit-job-btn" class="col btn btn-success">Edit Job</button>
+    <button type="button" id="delete-job-btn" class="col btn btn-danger ms-3">Delete Job</button>
+    </div>
+    </div>
+    `;
 
-    await registerJob(newJob);
-    getJobs();  
-    showView("jobs-list");
-});
-
+    jobDetailsContainer.innerHTML = jobDetailsHTML;
+};
 

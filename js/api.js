@@ -14,6 +14,9 @@ getJobs = async () => {
 getJobs();
 
 const createJob = () => {
+    const internetPaid = $("#internet-paid").checked;
+    const longTerm = $("#long-term").checked;
+
     const newJob = {
         name: $("#job-title").value,
         image: $("#image-url").value,
@@ -23,16 +26,19 @@ const createJob = () => {
         category: $("#category").value,
         salary: Number($("#salary").value),
         languages: $("#languages").value.split(","),
-        long_term: $("#long-term").checked,
+        long_term: longTerm,
         benefits: {
             vacation: $("#vacation").value,
             health_ensurance: $("#health-ensurance").value,
-            internet_paid: $("#internet-paid").checked,
+            internet_paid: internetPaid,
         },
+        internetPaidText: internetPaid ? "Yes" : "No",
+        longTermText: longTerm ? "Yes" : "No",
     };
 
     return newJob;
 };
+
 
 const registerJob = async (newJob) => {
     try {
@@ -51,6 +57,19 @@ const registerJob = async (newJob) => {
         window.location.href = "index.html";
     }
 };
+
+const getJobDetail = async (id) => {
+    try {
+        showView('spinner');
+        let response = await fetch (`${baseURL}/jobs/${id}`);
+        let data = await response.json();
+        showJobDetails(data);
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+
 
 
 // editar ==> PATCH para editar parcialmente o PUT si queremos cambiarle todos los campos -->editarEmpleo(id)
