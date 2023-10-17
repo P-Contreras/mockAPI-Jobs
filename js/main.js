@@ -73,40 +73,49 @@ const renderJobs = (jobs) => {
 };
 
 
-const showJobDetails = (job) => {
-
+const showJobDetails = (job, id) => {
     $("#search-filters").classList.add("visually-hidden");
     const jobDetailsContainer = $("#job-details-container");
     showView("job-details-container");
 
     const jobDetailsHTML = `
-    <div class="card" style="width: 38rem;">
-    <img src="${job.image}" class="card-img-top job-image" alt="...">
-    <div class="card-body">
-        <h3 class="card-title">${job.name}</h3>
-        <p class="card-text">${job.description}</p>
-        <ul class="list-group list-group-flush">
-        <li class="list-group-item list-group-item-action list-group-item-success">${job.location}</li>
-        <li class="list-group-item list-group-item-action list-group-item-info">${job.seniority}</li>
-        <li class="list-group-item list-group-item-action list-group-item-dark">${job.category}</li>
-        </ul>
-    </div>
-    <div class="card-body">
-    <p class="card-text">Salary: $ ${job.salary}</p>
-    <p class="card-text">Languages: ${job.languages}</p>
-    <p class="card-text">Long term: ${job.longTermText}</p>
-    <h5 class="card-title">Benefits</h5>
-    <p class="card-text">Vacation: ${job.benefits.vacation}</p>
-    <p class="card-text">Health insurance: ${job.benefits.health_ensurance}</p>
-    <p class="card-text">Internet paid: ${job.internetPaidText}</p>
-    </div>
-    <div class="card-body">
-    <button type="button" id="edit-job-btn" class="col btn btn-success">Edit Job</button>
-    <button type="button" id="delete-job-btn" class="col btn btn-danger ms-3">Delete Job</button>
-    </div>
-    </div>
+        <div class="card" style="width: 38rem;">
+            <img src="${job.image}" class="card-img-top job-image" alt="...">
+            <div class="card-body">
+                <h3 class="card-title">${job.name}</h3>
+                <p class="card-text">${job.description}</p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action list-group-item-success">${job.location}</li>
+                    <li class="list-group-item list-group-item-action list-group-item-info">${job.seniority}</li>
+                    <li class="list-group-item list-group-item-action list-group-item-dark">${job.category}</li>
+                </ul>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Salary: $ ${job.salary}</p>
+                <p class="card-text">Languages: ${job.languages}</p>
+                <p class="card-text">Long term: ${job.longTermText}</p>
+                <h5 class="card-title">Benefits</h5>
+                <p class="card-text">Vacation: ${job.benefits.vacation}</p>
+                <p class="card-text">Health insurance: ${job.benefits.health_ensurance}</p>
+                <p class="card-text">Internet paid: ${job.internetPaidText}</p>
+            </div>
+            <div class="card-body">
+                <button type="button" id="edit-job-btn" class="col btn btn-success">Edit Job</button>
+                <button type="button" id="delete-job-btn" class="col btn btn-danger ms-3" data-bs-toggle="modal" data-bs-target="#modal-delete-job">Delete Job</button>
+            </div>
+        </div>
     `;
 
     jobDetailsContainer.innerHTML = jobDetailsHTML;
+
+    
+    $("#delete-job-btn").addEventListener("click", () => {
+
+        showView('modal-delete-job');
+    
+        $("#btn-delete-job"). addEventListener("click" , () => {
+            deleteJob(id);
+        })
+    });
 };
 
