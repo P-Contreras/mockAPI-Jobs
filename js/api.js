@@ -18,6 +18,7 @@ const createJob = () => {
     const longTerm = $("#long-term").checked;
 
     const newJob = {
+        id: "",
         name: $("#job-title").value,
         image: $("#image-url").value,
         description: $("#description").value,
@@ -63,18 +64,26 @@ const getJobDetail = async (id) => {
         showView('spinner');
         let response = await fetch (`${baseURL}/jobs/${id}`);
         let data = await response.json();
-        showJobDetails(data);
+        showJobDetails(data, id); // Pasa el id a showJobDetails
     } catch (error) {
         console.error(error);
     }
 };
 
-
-
+const deleteJob = async (id) => {
+    try {
+        await fetch(`${baseURL}/jobs/${id}`, {
+            method: "DELETE",
+        });
+    } catch (error) {
+        alert(`Error al eliminar puesto de trabajo ${id}`);
+    } finally {
+        window.location.href = "index.html";
+    }
+};
 
 // editar ==> PATCH para editar parcialmente o PUT si queremos cambiarle todos los campos -->editarEmpleo(id)
 
-//borrar ==> DELETE --> borrarEmpleo(id). Para ir a buscarlo, lo buscamos por ID, le pasamos el ID por parámetro
 
 //borrarEmpleo = async (id) => {
     //DELETE
