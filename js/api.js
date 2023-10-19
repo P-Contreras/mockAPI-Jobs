@@ -102,7 +102,7 @@ const editJob = async (id) => {
             benefits: {
                 vacation: $("#edit-vacation").value,
                 health_ensurance: $("#edit-health-ensurance").value,
-                internet_paid: internetPaidValue,
+                internet_paid: $("#edit-internet-paid").checked,
             }
     }),
         headers: {

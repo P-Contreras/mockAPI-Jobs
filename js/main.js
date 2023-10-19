@@ -142,7 +142,7 @@ let longTermValue;
 let internetPaidValue;
 
 // edit job
-const showEditForm = (job) => {
+const showEditForm = (job, id) => {
     const jobDetailsContainer = $("#job-details-container");
     const editFormHTML = `
         <div class="edit-form">
@@ -270,6 +270,10 @@ const showEditForm = (job) => {
     $("#bn-edit-job").addEventListener("click", () => {
         editJob(job.id);
         
+    });
+
+    $("#btn-cancel-edit").addEventListener("click", () => {
+        showJobDetails(job, id);
     });
 };
 
