@@ -64,7 +64,9 @@ const getJobDetail = async (id) => {
         showView('spinner');
         let response = await fetch (`${baseURL}/jobs/${id}`);
         let data = await response.json();
-        showJobDetails(data, id); // Pasa el id a showJobDetails
+        // showJobDetails(data, id); 
+        const jobId = data.id;
+        showJobDetails(data, jobId);
     } catch (error) {
         console.error(error);
     }
@@ -82,7 +84,39 @@ const deleteJob = async (id) => {
     }
 };
 
-// editar ==> PATCH para editar parcialmente o PUT si queremos cambiarle todos los campos -->editarEmpleo(id)
+const editJob = async (id) => {
+    showView("spinner");
+
+    let response = await fetch(`${baseURL}/jobs/${id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+            name: $("#edit-job-title").value,
+            image: $("#edit-image-url").value,
+            description: $("#edit-description").value,
+            location: $("#edit-location").value,
+            seniority: $("#edit-seniority").value,
+            category: $("#edit-category").value,
+            salary: Number($("#edit-salary").value),
+            languages: $("#edit-languages").value.split(","),
+            long_term: longTermValue,
+            benefits: {
+                vacation: $("#edit-vacation").value,
+                health_ensurance: $("#edit-health-ensurance").value,
+                internet_paid: $("#edit-internet-paid").checked,
+            }
+    }),
+        headers: {
+            'Content-type': 'application/json',
+        }
+    });
+
+    let data = await response.json();
+
+    setTimeout(() => {
+        getJobs(data);
+    }, 2000);
+};
+
 
 
 //borrarEmpleo = async (id) => {
