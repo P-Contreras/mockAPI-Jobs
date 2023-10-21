@@ -68,6 +68,12 @@ const renderJobs = (jobs) => {
     } else {
         console.error("Invalid jobs data");
     }
+
+    // optionsSearchForm(jobs);
+
+    getSeniority(jobs);
+    getCategory(jobs);
+    getLocation(jobs);
 };
 
 const showJobDetails = (job, id) => {
@@ -277,7 +283,59 @@ const showEditForm = (job, id) => {
     });
 };
 
+const getSeniority = (data) => {
+    $("#seniority-filter").innerHTML = "";
+    $("#seniority-filter").innerHTML =
+        '<option value="" selected disabled>Seniority</option>';
 
+    let seniority = [];
 
-// onclick="editJob('${id}')" --> tengo que pasarle esto al boton que guarda la edicion
+    data.forEach((job) => {
+        if (!seniority.includes(job.seniority)) {
+            seniority.push(job.seniority);
+        }
+    });
 
+    seniority.forEach((seniority) => {
+        $("#seniority-filter").innerHTML +=
+            `<option value="${seniority}">${seniority}</option>`;
+    });
+};
+
+const getCategory = (data) => {
+    $("#category-filter").innerHTML = "";
+    $("#category-filter").innerHTML =
+        '<option value="" selected disabled>Category</option>';
+
+    let category = [];
+
+    data.forEach((job) => {
+        if (!category.includes(job.category)) {
+            category.push(job.category);
+        }
+    });
+
+    category.forEach((category) => {
+        $("#category-filter").innerHTML +=
+            `<option value="${category}">${category}</option>`;
+    });
+};
+
+const getLocation = (data) => {
+    $("#location-filter").innerHTML =
+    $("#location-filter").innerHTML = "";
+        '<option value="" selected disabled>Location</option>';
+
+    let location = [];
+
+    data.forEach((job) => {
+        if (!location.includes(job.location)) {
+            location.push(job.location);
+        }
+    });
+
+    location.forEach((location) => {
+        $("#location-filter").innerHTML +=
+            `<option value="${location}">${location}</option>`;
+    });
+};

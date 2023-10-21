@@ -5,13 +5,12 @@ getJobs = async () => {
     showView('spinner');
     let response = await fetch(`${baseURL}/jobs`); //esto por defecto hace un get
     let data = await response.json();
-    console.log(data);
     setTimeout(() => {
         renderJobs(data);
     }, 3000);
 };
 
-getJobs();
+// getJobs();
 
 const createJob = () => {
     const internetPaid = $("#internet-paid").checked;
@@ -119,12 +118,76 @@ const editJob = async (id) => {
 
 
 
-//borrarEmpleo = async (id) => {
-    //DELETE
-    // let response = await fetch(
-    //     "https://652088b7906e276284c4880c.mockapi.io/api/jobs"
-    // );
-    // let data = await response.json();
+
+// const searchButtonHandler = async () => {
+//     const categoryFilter = $("#category-filter").value;
+//     const locationFilter = $("#location-filter").value;
+//     const seniorityFilter = $("#seniority-filter").value;
+
+//     try {
+//         // Obtén la lista completa de trabajos
+//         const allJobs = await getJobs();
+
+//         // Inicializa filterJobs con todos los trabajos
+//         let filterJobs = allJobs;
+
+//         // Filtra por categoría si se seleccionó una categoría
+//         filterJobs = categoryFilter !== "category"
+//             ? filterJobs.filter((job) => job.category === categoryFilter)
+//             : filterJobs;
+
+//         // Filtra por ubicación si se seleccionó una ubicación
+//         filterJobs = locationFilter !== "location"
+//             ? filterJobs.filter((job) => job.location === locationFilter)
+//             : filterJobs;
+
+//         // Filtra por seniority si se seleccionó una seniority
+//         filterJobs = seniorityFilter !== "seniority"
+//             ? filterJobs.filter((job) => job.seniority === seniorityFilter)
+//             : filterJobs;
+
+//         // Renderiza los trabajos filtrados
+//         renderJobs(filterJobs);
+//     } catch (error) {
+//         console.error(error);
+//     }
+// };
+
+// const optionsSearchForm = (jobs) => {
+//     const uniqueCategories = new Set(jobs.map((job) => job.category));
+//     const uniqueLocations = new Set(jobs.map((job) => job.location));
+//     const uniqueSeniorities = new Set(jobs.map((job) => job.seniority));
+  
+//     // Limpiar opciones existentes en los select
+//     $("#category-filter").innerHTML = "";
+//     $("#location-filter").innerHTML = "";
+//     $("#seniority-filter").innerHTML = "";
+
+//     // options select category
+//     uniqueCategories.forEach((category) => {
+//         $("#category-filter").innerHTML += `<option value="${category}">${category}</option>`;
+//     });
+  
+//     // options select location
+//     uniqueLocations.forEach((location) => {
+//         $("#location-filter").innerHTML += `<option value="${location}">${location}</option>`;
+//     });
+  
+//     // options select seniority
+//     uniqueSeniorities.forEach((seniority) => {
+//         $("#seniority-filter").innerHTML += `<option value="${seniority}">${seniority}</option>`;
+//     });
+// };
+
+// // Asocia la función al evento click del botón Search
+// $("#search-button").addEventListener("click", searchButtonHandler);
+
+
+
+window.onload = () => {
+    getJobs();
+};
+
 
 
     //como refrescamos el html? getJobs es la funcion q va a la api y pinta. Asi que en borrarEmpleo, al finalizr, llamas a getJobs() (tal vez hay que ponerle un await para q pinte ok)
