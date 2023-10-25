@@ -38,37 +38,37 @@ const showView = (view) => {
         showView("jobs-list");
     });
 
-
-const renderJobs = (jobs) => {
-    $("#jobs-list").innerHTML = "";
-    if (jobs) {
-        showView("jobs-list");
-        let row = document.createElement("div")
-        row.setAttribute("class", "row")
-        row.classList.add("gap-4")
-        for (let { name, description, id, location, seniority, category} of jobs) {
-            row.innerHTML += `
-            <div class="card card-jobs shadow" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">${name}</h5>
-                <p class="card-text job-description">${description}</p>
-            </div>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item list-group-item-action list-group-item-success">${location}</li>
-                <li class="list-group-item list-group-item-action list-group-item-info">${seniority}</li>
-                <li class="list-group-item list-group-item-action list-group-item-dark">${category}</li>
-            </ul>
-            <div class="card-body">
-            <a href="#" class='btn btn-outline-dark boton' onclick="getJobDetail('${id}')">View details</a>
-            </div>
-            </div>
-    `;
+    const renderJobs = (jobs) => {
+        $("#jobs-list").innerHTML = "";
+        if (jobs) {
+            showView("jobs-list");
+            let row = document.createElement("div");
+            row.setAttribute("class", "row");
+            row.classList.add("gap-4");
+            for (let { name, description, id, location, seniority, category, image } of jobs) {
+                row.innerHTML += `
+                <div class="card card-jobs shadow" style="width: 18rem;">
+                <img class="card-img-top" src="${image}" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">${name}</h5>
+                    <p class="card-text job-description">${description}</p>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-action list-group-item-success">${location}</li>
+                    <li class="list-group-item list-group-item-action list-group-item-info">${seniority}</li>
+                    <li class="list-group-item list-group-item-action list-group-item-dark">${category}</li>
+                </ul>
+                <div class="card-body margin-img d-flex justify-content-center">
+                <a href="#" class='btn btn-outline-dark boton' onclick="getJobDetail('${id}')">View details</a>
+                </div>
+                </div>
+            `;
+            }
             $("#jobs-list").appendChild(row);
+        } else {
+            console.error("Invalid jobs data");
         }
-    } else {
-        console.error("Invalid jobs data");
-    }
-};
+    };
 
 const showJobDetails = (job, id) => {
     $("#search-filters").classList.add("visually-hidden");
@@ -77,7 +77,7 @@ const showJobDetails = (job, id) => {
 
     const jobDetailsHTML = `
         <div class="card" style="width: 38rem;">
-            <img src="${job.image}" class="card-img-top job-image" alt="...">
+            <img src="${job.image}" class="card-img-top-details job-image" alt="...">
             <div class="card-body">
                 <h3 class="card-title">${job.name}</h3>
                 <p class="card-text">${job.description}</p>
@@ -268,8 +268,8 @@ const showEditForm = (job, id) => {
     $("#edit-internet-paid").checked = internetPaidValue;
 
     $("#bn-edit-job").addEventListener("click", () => {
+        showView("search-filters");
         editJob(job.id);
-        
     });
 
     $("#btn-cancel-edit").addEventListener("click", () => {
@@ -277,7 +277,69 @@ const showEditForm = (job, id) => {
     });
 };
 
+const getSeniority = (data) => {
+    $("#seniority-filter").innerHTML = "";
+    $("#seniority-filter").innerHTML = '<option value="" selected disabled>Seniority</option>';
+
+    let seniority = [];
+
+    data.forEach((job) => {
+        if (!seniority.includes(job.seniority)) {
+            seniority.push(job.seniority);
+        }
+    });
+
+    seniority.forEach((seniority) => {
+        $("#seniority-filter").innerHTML +=
+            `<option value="${seniority}">${seniority}</option>`;
+    });
+};
+
+const getCategory = (data) => {
+    console.log("Entrando en getcategory");
+    $("#category-filter").innerHTML = "";
+    $("#category-filter").innerHTML = '<option value="" selected disabled>Category</option>';
+
+    let category = [];
+
+    data.forEach((job) => {
+        if (!category.includes(job.category)) {
+            category.push(job.category);
+        }
+    });
+
+    category.forEach((category) => {
+        $("#category-filter").innerHTML +=
+            `<option value="${category}">${category}</option>`;
+    });
+};
 
 
-// onclick="editJob('${id}')" --> tengo que pasarle esto al boton que guarda la edicion
+const getLocation = (data) => {
+    $("#location-filter").innerHTML = ""; 
+    $("#location-filter").innerHTML = '<option value="" selected disabled>Location</option>';
 
+    let location = [];
+
+    data.forEach((job) => {
+        if (!location.includes(job.location)) {
+            location.push(job.location);
+        }
+    });
+
+    location.forEach((location) => {
+        $("#location-filter").innerHTML += `<option value="${location}">${location}</option>`;
+    });
+};
+
+document.getElementById("clear-button").addEventListener("click", () => {
+
+    console.log("Clear button clicked");  
+
+    
+    $("#seniority-filter").value = "";
+    $("#category-filter").value = "";
+    $("#location-filter").value = "";
+
+    loadAllJobs();
+});
