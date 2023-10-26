@@ -3,50 +3,51 @@ $$ = (selector) => document.querySelectorAll(selector);
 
 const showView = (view) => {
     $$(".view").forEach((view) => view.classList.add("visually-hidden"));
-    $(`#${view}`).classList.remove("visually-hidden")};
+    $(`#${view}`).classList.remove("visually-hidden")
+};
 
-    $("#create-job-link").addEventListener("click", function (event) {
-        event.preventDefault();
-        
-        $("#search-filters").classList.add("visually-hidden");
-        showView("create-job");
-    });
-    
-    $("#cancel-btn").addEventListener("click", () =>
-        showView("jobs-list")
-    );
+$("#create-job-link").addEventListener("click", function (event) {
+    event.preventDefault();
 
-    $("#home-btn").addEventListener("click", function (event) {
-        event.preventDefault();
-        showView("search-filters");
+    $("#search-filters").classList.add("visually-hidden");
+    showView("create-job");
+});
+
+$("#cancel-btn").addEventListener("click", () =>
+    showView("jobs-list")
+);
+
+$("#home-btn").addEventListener("click", function (event) {
+    event.preventDefault();
+    showView("search-filters");
+    showView("jobs-list");
+});
+
+$("#home").addEventListener("click", function (event) {
+    event.preventDefault();
+    showView("search-filters");
+    showView("jobs-list");
+});
+
+$("#create-btn").addEventListener("click", async function (event) {
+    event.preventDefault();
+
+    const newJob = createJob();
+
+    await registerJob(newJob);
+    getJobs();
+    showView("jobs-list");
+});
+
+const renderJobs = (jobs) => {
+    $("#jobs-list").innerHTML = "";
+    if (jobs) {
         showView("jobs-list");
-    });
-
-    $("#home").addEventListener("click", function (event) {
-        event.preventDefault();
-        showView("search-filters");
-        showView("jobs-list");
-    });
-
-    $("#create-btn").addEventListener("click", async function (event) {
-        event.preventDefault();
-    
-        const newJob = createJob();
-    
-        await registerJob(newJob);
-        getJobs();  
-        showView("jobs-list");
-    });
-
-    const renderJobs = (jobs) => {
-        $("#jobs-list").innerHTML = "";
-        if (jobs) {
-            showView("jobs-list");
-            let row = document.createElement("div");
-            row.setAttribute("class", "row");
-            row.classList.add("gap-4");
-            for (let { name, description, id, location, seniority, category, image } of jobs) {
-                row.innerHTML += `
+        let row = document.createElement("div");
+        row.setAttribute("class", "row");
+        row.classList.add("gap-4");
+        for (let { name, description, id, location, seniority, category, image } of jobs) {
+            row.innerHTML += `
                 <div class="card card-jobs shadow" style="width: 18rem;">
                 <img class="card-img-top" src="${image}" alt="Card image cap">
                 <div class="card-body">
@@ -63,12 +64,12 @@ const showView = (view) => {
                 </div>
                 </div>
             `;
-            }
-            $("#jobs-list").appendChild(row);
-        } else {
-            console.error("Invalid jobs data");
         }
-    };
+        $("#jobs-list").appendChild(row);
+    } else {
+        console.error("Invalid jobs data");
+    }
+};
 
 const showJobDetails = (job, id) => {
     $("#search-filters").classList.add("visually-hidden");
@@ -261,7 +262,7 @@ const showEditForm = (job, id) => {
     $("#edit-seniority").value = job.seniority;
     $("#edit-category").value = job.category;
     $("#edit-salary").value = job.salary;
-    $("#edit-languages").value = job.languages.join(","); 
+    $("#edit-languages").value = job.languages.join(",");
     $("#edit-long-term").checked = longTermValue;
     $("#edit-vacation").value = job.benefits.vacation;
     $("#edit-health-ensurance").value = job.benefits.health_ensurance;
@@ -296,7 +297,6 @@ const getSeniority = (data) => {
 };
 
 const getCategory = (data) => {
-    console.log("Entrando en getcategory");
     $("#category-filter").innerHTML = "";
     $("#category-filter").innerHTML = '<option value="" selected disabled>Category</option>';
 
@@ -316,7 +316,7 @@ const getCategory = (data) => {
 
 
 const getLocation = (data) => {
-    $("#location-filter").innerHTML = ""; 
+    $("#location-filter").innerHTML = "";
     $("#location-filter").innerHTML = '<option value="" selected disabled>Location</option>';
 
     let location = [];
@@ -332,11 +332,8 @@ const getLocation = (data) => {
     });
 };
 
-document.getElementById("clear-button").addEventListener("click", () => {
+$("#clear-button").addEventListener("click", () => {
 
-    console.log("Clear button clicked");  
-
-    
     $("#seniority-filter").value = "";
     $("#category-filter").value = "";
     $("#location-filter").value = "";
