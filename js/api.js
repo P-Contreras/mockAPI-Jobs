@@ -61,7 +61,6 @@ const registerJob = async (newJob) => {
             body: JSON.stringify(newJob),
         });
         const job = await response.json();
-        console.log(job);
     } catch (error) {
         alert(error);
     } finally {
@@ -72,7 +71,7 @@ const registerJob = async (newJob) => {
 const getJobDetail = async (id) => {
     try {
         showView('spinner');
-        let response = await fetch (`${baseURL}/jobs/${id}`);
+        let response = await fetch(`${baseURL}/jobs/${id}`);
         let data = await response.json();
 
         const jobId = data.id;
@@ -114,7 +113,7 @@ const editJob = async (id) => {
                 health_ensurance: $("#edit-health-ensurance").value,
                 internet_paid: $("#edit-internet-paid").checked,
             }
-    }),
+        }),
         headers: {
             'Content-type': 'application/json',
         }
